@@ -27,10 +27,10 @@ func setup_action_zones() -> void:
 	action_zones["Kitchen"] = {"zone": $Kitchen/ActionZone, "action": "Eat"}
 	action_zones["Shower"] = {"zone": $Shower/ActionZone, "action": "Shower"}
 	
-	for zone_name in action_zones:
-		var zone = action_zones[zone_name]["zone"]
-		zone.area_entered.connect(func(area): _on_zone_entered(zone_name))
-		zone.area_exited.connect(func(area): _on_zone_exited(zone_name))
+	for zone_key in action_zones:
+		var zone = action_zones[zone_key]["zone"]
+		zone.area_entered.connect(func(area): _on_zone_entered(zone_key))
+		zone.area_exited.connect(func(area): _on_zone_exited(zone_key))
 
 func setup_camera() -> void:
 	camera.position = player.position + Vector3(5, 8, 8)
@@ -68,16 +68,13 @@ func update_hud() -> void:
 	if has_node("HUD"):
 		$HUD.refresh(stats)
 
-func _on_zone_entered(zone_name: String) -> void:
-	current_zone = zone_name
-	if has_node("HUD") and has_node("HUD/ActionPrompt"):
-		$HUD/ActionPrompt.text = "Press [E] for " + action_zones[zone_name]["action"]
+func _on_zone_entered(zone_key: String) -> void:
+	current_zone = zone_key
+	# Interaction hint can be added here
 
-func _on_zone_exited(zone_name: String) -> void:
-	if current_zone == zone_name:
+func _on_zone_exited(zone_key: String) -> void:
+	if current_zone == zone_key:
 		current_zone = ""
-		if has_node("HUD") and has_node("HUD/ActionPrompt"):
-			$HUD/ActionPrompt.text = ""
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_E:

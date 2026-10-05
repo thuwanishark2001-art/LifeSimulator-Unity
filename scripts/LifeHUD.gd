@@ -110,9 +110,9 @@ func build_ui() -> void:
 	action_buttons["Sleep"] = create_button("Sleep", 0.48, 0.02, func(): get_parent().do_action("Sleep"))
 	action_buttons["Relax"] = create_button("Relax", 0.66, 0.02, func(): get_parent().do_action("Relax"))
 
-func create_bar(name: String, x: float, y: float) -> StatBarUI:
+func create_bar(stat_name: String, x: float, y: float) -> StatBarUI:
 	var bar := StatBarUI.new()
-	bar.setup(name)
+	bar.setup(stat_name)
 	bar.anchor_left = x
 	bar.anchor_right = x + 0.80
 	bar.anchor_top = y
@@ -120,9 +120,9 @@ func create_bar(name: String, x: float, y: float) -> StatBarUI:
 	add_child(bar)
 	return bar
 
-func create_button(text: String, x: float, y: float, callback: Callable) -> Button:
+func create_button(btn_text: String, x: float, y: float, callback: Callable) -> Button:
 	var button := Button.new()
-	button.text = text
+	button.text = btn_text
 	button.anchor_left = x - 0.08
 	button.anchor_right = x + 0.08
 	button.anchor_top = y - 0.03
