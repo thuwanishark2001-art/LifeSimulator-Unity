@@ -1,20 +1,135 @@
-; Engine configuration file.
-; It's best edited using the editor if possible.
+extends RefCounted
+class_name LifeStats
 
-config_version=5
+var energy: float = 100.0
+var hunger: float = 100.0
+var happiness: float = 75.0
+var cleanliness: float = 80.0
+var health: float = 100.0
+var money: float = 500.0
+var day: int = 1
+var time_of_day: float = 8.0
+var job_title: String = "Freelancer"
+var job_level: int = 1
+var current_location: String = "Apartment"
+var work_streak: int = 0
+var social_level: int = 1
+var home_quality: int = 1
+var skill_level: int = 1
+var nutrition_score: float = 50.0
+var fitness_level: int = 1
+var relationships: Dictionary = {"best_friend": 0, "colleague": 0}
+var inventory: Array = []
+var total_earnings: float = 0.0
+var achievements: Array = []
 
-[application]
-config/name="Life Simulator"
-run/main_scene="res://scenes/MainGame.tscn"
-config/features=PackedStringArray("4.3")
-config/icon="res://icon.svg"
+func apply_decay(delta: float) -> void:
+	energy = clamp(energy - delta * 1.15, 0.0, 100.0)
+	hunger = clamp(hunger - delta * 1.5, 0.0, 100.0)
+	cleanliness = clamp(cleanliness - delta * 0.55, 0.0, 100.0)
+	happiness = clamp(happiness - delta * 0.45, 0.0, 100.0)
+	nutrition_score = clamp(nutrition_score - delta * 0.6, 0.0, 100.0)
 
-[display]
-window/size/viewport_width=1080
-window/size/viewport_height=1920
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+	if hunger < 20.0:
+		health = clamp(health - delta * 0.9, 0.0, 100.0)
+	if energy < 15.0:
+		happiness = clamp(happiness - delta * 0.7, 0.0, 100.0)
+	if cleanliness < 15.0:
+		health = clamp(health - delta * 0.4, 0.0, 100.0)
 
-[rendering]
-renderer/rendering_method="mobile"
-textures/vram_compression/import_etc2_astc=true
+func apply_action(action_name: String) -> void:
+	match action_name:
+		"Work":
+			var earning: float = 35.0 + job_level * 14.0
+			money += earning
+			total_earnings += earning
+			energy -= 20.0
+			hunger -= 16.0
+			happiness += 2.0
+			health -= 2.0
+			cleanliness -= 5.0
+			job_level += 1
+			work_streak += 1
+			if job_level > 10:
+				job_title = "Senior Specialist"
+			if job_level > 20:
+				job_title = "Manager"
+			if job_level > 30:
+				job_title = "Executive"
+			if work_streak >= 5 and "Work_Ethic" not in achievements:
+				achievements.append("Work_Ethic")
+		"Eat":
+			if money < 7.0:
+				return
+			hunger += 32.0
+			energy += 12.0
+			health += 8.0
+			nutrition_score += 18.0
+			money -= 7.0
+			happiness += 5.0
+		"Sleep":
+			energy += 45.0
+			hunger -= 12.0
+			happiness += 10.0
+			time_of_day = 7.0
+			day += 1
+			if happiness > 80.0 and "Well_Rested" not in achievements:
+				achievements.append("Well_Rested")
+		"Relax":
+			happiness += 20.0
+			energy -= 6.0
+			hunger -= 7.0
+		"Shower":
+			cleanliness += 38.0
+			happiness += 12.0
+			energy -= 3.0
+		"Socialize":
+			happiness += 15.0
+			social_level += 1
+			energy -= 8.0
+			if "best_friend" in relationships:
+				relationships["best_friend"] += 5
+			if social_level >= 5 and "Social_Butterfly" not in achievements:
+				achievements.append("Social_Butterfly")
+		"Study":
+			skill_level += 1
+			health += 5.0
+			happiness += 8.0
+			energy -= 10.0
+			if skill_level >= 10 and "Scholar" not in achievements:
+				achievements.append("Scholar")
+		"UpgradeHome":
+			if money < 50.0:
+				return
+			money -= 50.0
+			home_quality += 1
+			happiness += 12.0
+			if home_quality >= 10 and "Dream_Home" not in achievements:
+				achievements.append("Dream_Home")
+		"Workout":
+			health += 10.0
+			happiness += 7.0
+			fitness_level += 1
+			energy -= 12.0
+			if fitness_level >= 5 and "Fit_Life" not in achievements:
+				achievements.append("Fit_Life")
+		"Meditate":
+			happiness += 25.0
+			energy -= 4.0
+			health += 5.0
+		"Shop":
+			if money < 20.0:
+				return
+			money -= 20.0
+			inventory.append("Item")
+			happiness += 8.0
+		_: 
+			pass
+
+	energy = clamp(energy, 0.0, 100.0)
+	hunger = clamp(hunger, 0.0, 100.0)
+	happiness = clamp(happiness, 0.0, 100.0)
+	cleanliness = clamp(cleanliness, 0.0, 100.0)
+	health = clamp(health, 0.0, 100.0)
+	nutrition_score = clamp(nutrition_score, 0.0, 100.0)
+	money = max(money, 0.0)
