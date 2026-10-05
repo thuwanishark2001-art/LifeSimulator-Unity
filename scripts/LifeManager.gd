@@ -40,9 +40,11 @@ func do_action(action_name: String) -> void:
 		hud.refresh(stats)
 
 func save_game() -> void:
-	SaveSystem.save_data(stats, current_save_slot)
+	var save_system := SaveSystem.new(current_save_slot)
+	save_system.save_data(stats)
 	if hud and hud.status_label:
 		hud.status_label.text = "Saved to slot %d." % (current_save_slot + 1)
 
 func load_game() -> void:
-	stats = SaveSystem.load_data(current_save_slot)
+	var save_system := SaveSystem.new(current_save_slot)
+	stats = save_system.load_data()
