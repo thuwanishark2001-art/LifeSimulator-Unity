@@ -23,3 +23,33 @@ Thumbs.db
 # Crash / local data
 user_data/
 crash_dumps/
+
+# Unity leftovers (only kept here as a safety net)
+Assets/
+Packages/
+ProjectSettings/
+Library/
+Temp/
+Logs/
+obj/
+Build/
+Builds/
+MemoryCaptures/
+UserSettings/
+*.cs
+*.csproj
+*.unity
+*.unityproj
+*.sln
+*.asmdef
+*.meta
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.user
+*.userprefs
+*.tmp

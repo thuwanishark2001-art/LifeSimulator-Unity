@@ -27,6 +27,15 @@ A professional life simulation game built with Godot 4.x and optimized for Andro
 4. Interact with buttons to take actions
 5. Game auto-saves every 30 seconds
 
+## Clean Unity leftovers
+
+Run the repository cleanup script before opening the project in Godot:
+
+```bash
+chmod +x remove_unity.sh
+./remove_unity.sh
+```
+
 ## Android export
 
 1. Install Godot and Android build templates
