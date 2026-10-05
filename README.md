@@ -1,6 +1,6 @@
-# Godot Life Simulator - Complete Game Project
+# LifeSimulator - Godot Edition
 
-A functional mobile life simulation game built with Godot 4.x and ready for Android export.
+A professional life simulation game built with Godot 4.x and optimized for Android export.
 
 ## Features
 
@@ -31,28 +31,32 @@ A functional mobile life simulation game built with Godot 4.x and ready for Andr
 
 1. Install Godot and Android build templates
 2. Go to Project > Export Presets
-3. Create Android export preset
+3. Create an Android export preset
 4. Set up Android SDK/NDK paths in Godot settings
-5. Configure your package name (e.g., com.yourname.lifesimulator)
+5. Configure your package name (for example, `com.yourname.lifesimulator`)
 6. Generate a keystore for signing
 7. Click Export to create APK
-8. Install and test on real Android device
+8. Install and test on a real Android device
 
 ## Project structure
 
 ```
-scripts/
-  LifeStats.gd          - Core game state and actions
-  LifeManager.gd        - Main game loop and logic
-  LifeHUD.gd            - UI management and rendering
-  StatBarUI.gd          - Individual stat bar component
-  SaveSystem.gd         - Save/load and persistence
-
 scenes/
-  MainGame.tscn         - Main game scene
-
+  MainGame.tscn
+scripts/
+  LifeStats.gd
+  LifeManager.gd
+  LifeHUD.gd
+  StatBarUI.gd
+  SaveSystem.gd
+ui/
+  ...
+game/
+  ...
 docs/
   AndroidExportChecklist.md
+project.godot
+icon.svg
 ```
 
 ## Gameplay tips
@@ -70,15 +74,7 @@ docs/
 
 ## Important notes
 
-This is a fully functional game prototype and Android-ready project foundation. It is not a complete AAA commercial game with custom 3D art, professional voice acting, or advanced AI systems. It is designed as a solid base for further development and customization.
-
-The game runs well on mobile devices and is optimized for Android phones. Further enhancements can include:
-- Custom 2D/3D graphics and animations
-- More detailed story and character systems
-- Music and sound effects
-- Additional gameplay systems
-- Network/cloud save integration
-- Tablet-specific UI layouts
+This project is designed as a Godot-based mobile game prototype and Android-ready foundation. The project uses GDScript and Godot-native architecture rather than Unity.
 
 ## License
 

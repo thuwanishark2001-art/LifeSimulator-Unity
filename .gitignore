@@ -1,46 +1,25 @@
-# Standard Unity .gitignore
+# Godot 4 project ignores
+.godot/
+.import/
+export_presets.cfg
 
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Mm]emoryCaptures/
-
-# Visual Studio
-.vscode/
-.vs/
-*.csproj
-*.unityproj
-*.sln
-*.suo
-*.tmp
-*.user
-*.userprefs
-*.pidb
-*.booproj
-*.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
-
-# User-specific
-UserSettings/
-
-# Mac
+# OS files
 .DS_Store
+Thumbs.db
 
-# Linux
+# Editor / IDE
+.vscode/
+.idea/
 *.swp
+*.swo
+*~
 
-# Android
-[Ll]ibrary
-[Bb]uild/Android
+# Build output
 *.apk
 *.aab
-*.keystore
+*.pck
+*.zip
 
-# Crash reports
-sysinfo.txt
+# Crash / local data
+user_data/
+crash_dumps/
