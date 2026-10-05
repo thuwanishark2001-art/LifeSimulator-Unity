@@ -1,0 +1,46 @@
+# Standard Unity .gitignore
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Visual Studio
+.vscode/
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# User-specific
+UserSettings/
+
+# Mac
+.DS_Store
+
+# Linux
+*.swp
+
+# Android
+[Ll]ibrary
+[Bb]uild/Android
+*.apk
+*.aab
+*.keystore
+
+# Crash reports
+sysinfo.txt
