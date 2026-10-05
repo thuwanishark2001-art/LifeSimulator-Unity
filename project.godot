@@ -1,0 +1,22 @@
+# Godot Life Simulator Project Configuration
+
+[application]
+config/name="Life Simulator"
+config/version="1.0.0"
+config/icon="res://assets/icon.png"
+
+[rendering]
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+
+[display]
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+
+[physics]
+physics_engine/default_gravity=9.8
+
+[audio]
+bus_layout="res://audio/default_bus_layout.tres"

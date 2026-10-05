@@ -1,42 +1,53 @@
-# Life Simulator mobile prototype
+# Life Simulator - Godot Engine Mobile Prototype
 
-This repository contains a mobile-first life simulation prototype built to be opened in Unity and exported to Android APK/AAB.
+This repository contains a mobile-ready life simulation prototype built for the **Godot Engine** (4.x) and optimized for Android APK export.
 
 ## What is included
 
-- Character stats: energy, hunger, happiness, cleanliness, health, money
+- Character stats system: energy, hunger, happiness, cleanliness, health, money
 - Day/night progression and date tracking
 - Jobs, routine actions, and life loop simulation
-- Save/load system using `Application.persistentDataPath`
-- Modern mobile HUD UI
-- Android build guidance
+- Save/load system using Godot's ConfigFile
+- Modern mobile HUD UI built with Godot UI nodes
+- Android build guidance for Godot
+- Complete Godot project structure (scenes and scripts)
 
 ## File overview
 
-- `Assets/Scripts/Game/LifeStats.cs`
-- `Assets/Scripts/Game/LifeManager.cs`
-- `Assets/Scripts/Game/SaveSystem.cs`
-- `Assets/Scripts/Game/LifeSaveData.cs`
-- `Assets/Scripts/UI/LifeHUD.cs`
-- `Assets/Scripts/UI/StatBarUI.cs`
-- `Assets/Scripts/Game/BootSceneSetup.cs`
-- `Assets/Scripts/Game/AndroidBuildGuide.md`
+- `game/LifeStats.gd` - Core stats management
+- `game/LifeManager.gd` - Main game controller
+- `game/SaveSystem.gd` - Persistent save/load logic
+- `ui/LifeHUD.gd` - HUD display and refresh
+- `ui/StatBarUI.gd` - Individual stat bar UI component
+- `scenes/MainGame.tscn` - Main game scene
+- `project.godot` - Godot project configuration
+- `export_presets.cfg` - Android export preset
 
-## Unity usage
+## Godot usage
 
-1. Open the folder in Unity Hub as a Unity project.
-2. Create a new scene and add an empty GameObject called `LifeSimulator`.
-3. Attach the `BootSceneSetup` script to it.
-4. Press Play.
-5. Build Settings -> Android -> Switch Platform -> Build APK.
+1. Install Godot Engine 4.x (free and open-source)
+2. Open this folder in Godot
+3. Open `scenes/MainGame.tscn`
+4. Press F5 or click Play to run the game
+5. Export > Android > Select Android export preset > Export APK
 
 ## Android notes
 
-- Use a valid keystore.
-- Set `Bundle Identifier` and `Application Identifier`.
-- Test on a real Android device before publishing.
-- Consider adding your own art, animations, sound, and progression content.
+- Install Android SDK and NDK via Godot project settings
+- Generate a valid keystore for signing
+- Set `application/config/name` and `application/package/unique_name`
+- Test on a real Android device before publishing
+- Consider adding custom art, animations, and sound
 
-## Disclaimer
+## Key Godot differences from Unity
 
-This is a complete playable starter foundation for a life sim and Android export workflow. It is not a full commercial AAA game with licensed art, advanced 3D assets, or cinematic realism. It is designed as a strong foundation for expansion.
+- Uses GDScript (Python-like scripting language)
+- Scene-based architecture instead of GameObject hierarchies
+- Signals system for event communication
+- ConfigFile for save data (instead of JSON)
+- Built-in Node and Control UI system
+- Export as APK directly from editor
+
+## License
+
+MIT
