@@ -1,0 +1,76 @@
+extends Control
+
+var slot_buttons: Array[Button] = []
+
+func _ready() -> void:
+	build_ui()
+	refresh_slot_labels()
+
+func build_ui() -> void:
+	var root := VBoxContainer.new()
+	root.anchor_left = 0.5
+	root.anchor_top = 0.5
+	root.anchor_right = 0.5
+	root.anchor_bottom = 0.5
+	root.offset_left = -180
+	root.offset_top = -260
+	root.offset_right = 180
+	root.offset_bottom = 260
+	root.alignment = BoxContainer.ALIGNMENT_CENTER
+	root.add_theme_constant_override("separation", 18)
+	add_child(root)
+
+	var title := Label.new()
+	title.text = "Life Simulator"
+	title.add_theme_font_size_override("font_size", 42)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	root.add_child(title)
+
+	var new_game := Button.new()
+	new_game.text = "New Game"
+	new_game.pressed.connect(_on_new_game_pressed)
+	root.add_child(new_game)
+
+	var slot_1 := Button.new()
+	slot_1.text = "Slot 1"
+	slot_1.pressed.connect(func(): _on_slot_pressed(0))
+	slot_buttons.append(slot_1)
+	root.add_child(slot_1)
+
+	var slot_2 := Button.new()
+	slot_2.text = "Slot 2"
+	slot_2.pressed.connect(func(): _on_slot_pressed(1))
+	slot_buttons.append(slot_2)
+	root.add_child(slot_2)
+
+	var slot_3 := Button.new()
+	slot_3.text = "Slot 3"
+	slot_3.pressed.connect(func(): _on_slot_pressed(2))
+	slot_buttons.append(slot_3)
+	root.add_child(slot_3)
+
+	var settings := Button.new()
+	settings.text = "Settings"
+	root.add_child(settings)
+
+func refresh_slot_labels() -> void:
+	for i in range(slot_buttons.size()):
+		var button: Button = slot_buttons[i]
+		var save_system := SaveSystem.new(i)
+		var info := save_system.get_save_info()
+		if info["exists"]:
+			button.text = "Slot %d - Day %d - $%d" % [i + 1, info["day"], int(info["money"])]
+		else:
+			button.text = "Slot %d - Empty" % [i + 1]
+
+func _on_new_game_pressed() -> void:
+	start_game(0)
+
+func _on_slot_pressed(slot_index: int) -> void:
+	start_game(slot_index)
+
+func start_game(slot_index: int) -> void:
+	var manager := LifeManager.new()
+	manager.setup(slot_index)
+	get_tree().root.add_child(manager)
+	queue_free()
