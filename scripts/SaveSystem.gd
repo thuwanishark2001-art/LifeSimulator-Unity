@@ -4,7 +4,12 @@ class_name SaveSystem
 const SAVE_PATH := "user://life_sim_save.cfg"
 const SAVE_SLOTS: int = 3
 
-static func save_data(stats: LifeStats, slot: int = 0) -> void:
+var slot: int = 0
+
+func _init(p_slot: int = 0) -> void:
+	slot = p_slot
+
+func save_data(stats: LifeStats) -> void:
 	var config := ConfigFile.new()
 	var slot_prefix := "slot_%d_" % slot
 	
@@ -31,7 +36,7 @@ static func save_data(stats: LifeStats, slot: int = 0) -> void:
 	if err != OK:
 		push_error("Save failed: %s" % err)
 
-static func load_data(slot: int = 0) -> LifeStats:
+func load_data() -> LifeStats:
 	var stats := LifeStats.new()
 	var config := ConfigFile.new()
 	var slot_prefix := "slot_%d_" % slot
@@ -64,7 +69,7 @@ static func load_data(slot: int = 0) -> LifeStats:
 	
 	return stats
 
-static func get_save_info(slot: int) -> Dictionary:
+func get_save_info() -> Dictionary:
 	var config := ConfigFile.new()
 	var slot_prefix := "slot_%d_" % slot
 	var err := config.load(SAVE_PATH)
