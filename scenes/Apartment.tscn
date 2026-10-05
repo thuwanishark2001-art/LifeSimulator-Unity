@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2d8xfuvy4xf2"]
+
+[ext_resource type="Script" path="res://scenes/ApartmentScene.gd" uid="uid://b7kx8yk5p8xf1"]
+[ext_resource type="Script" path="res://scripts/LifeManager.gd" uid="uid://d3xf3v9k5m2p1"]
+
+[node name="Apartment" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(5, 8, 8)
+lookup_vector = Vector3(0, -0.7, -0.7)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = BoxMesh.new()
+mesh.size = Vector3(10, 0.2, 10)
+position = Vector3(5, 0, 5)
+
+[node name="Wall1" type="MeshInstance3D" parent="."]
+mesh = BoxMesh.new()
+mesh.size = Vector3(0.2, 3, 10)
+position = Vector3(0, 1.5, 5)
+
+[node name="Wall2" type="MeshInstance3D" parent="."]
+mesh = BoxMesh.new()
+mesh.size = Vector3(0.2, 3, 10)
+position = Vector3(10, 1.5, 5)
+
+[node name="Wall3" type="MeshInstance3D" parent="."]
+mesh = BoxMesh.new()
+mesh.size = Vector3(10, 3, 0.2)
+position = Vector3(5, 1.5, 0)
+
+[node name="Wall4" type="MeshInstance3D" parent="."]
+mesh = BoxMesh.new()
+mesh.size = Vector3(10, 3, 0.2)
+position = Vector3(5, 1.5, 10)
+
+[node name="Bed" type="Node3D" parent="."]
+position = Vector3(1.5, 0.5, 1.5)
+
+[node name="BedMesh" type="MeshInstance3D" parent="Bed"]
+mesh = BoxMesh.new()
+mesh.size = Vector3(1.5, 0.5, 2)
+
+[node name="ActionZone" type="Area3D" parent="Bed"]
+scale = Vector3(1.5, 1.5, 1.5)
+
+[node name="BedCollision" type="CollisionShape3D" parent="Bed/ActionZone"]
+shape = BoxShape3D.new()
+shape.size = Vector3(1.5, 1, 2.5)
+
+[node name="Desk" type="Node3D" parent="."]
+position = Vector3(8, 0.75, 2)
+
+[node name="DeskMesh" type="MeshInstance3D" parent="Desk"]
+mesh = BoxMesh.new()
+mesh.size = Vector3(1.5, 0.8, 1)
+
+[node name="ActionZone" type="Area3D" parent="Desk"]
+scale = Vector3(1.5, 1, 1.5)
+
+[node name="DeskCollision" type="CollisionShape3D" parent="Desk/ActionZone"]
+shape = BoxShape3D.new()
+shape.size = Vector3(1.5, 1, 1.5)
+
+[node name="Couch" type="Node3D" parent="."]
+position = Vector3(2, 0.4, 7)
+
+[node name="CouchMesh" type="MeshInstance3D" parent="Couch"]
+mesh = BoxMesh.new()
+mesh.size = Vector3(2, 0.6, 1)
+
+[node name="ActionZone" type="Area3D" parent="Couch"]
+scale = Vector3(2, 1, 1.2)
+
+[node name="CouchCollision" type="CollisionShape3D" parent="Couch/ActionZone"]
+shape = BoxShape3D.new()
+shape.size = Vector3(2, 1, 1.2)
+
+[node name="Kitchen" type="Node3D" parent="."]
+position = Vector3(8, 0.6, 7)
+
+[node name="KitchenMesh" type="MeshInstance3D" parent="Kitchen"]
+mesh = BoxMesh.new()
+mesh.size = Vector3(1.5, 1.2, 1.5)
+
+[node name="ActionZone" type="Area3D" parent="Kitchen"]
+scale = Vector3(1.5, 1, 1.5)
+
+[node name="KitchenCollision" type="CollisionShape3D" parent="Kitchen/ActionZone"]
+shape = BoxShape3D.new()
+shape.size = Vector3(1.5, 1, 1.5)
+
+[node name="Shower" type="Node3D" parent="."]
+position = Vector3(1.5, 1, 8)
+
+[node name="ShowerMesh" type="MeshInstance3D" parent="Shower"]
+mesh = BoxMesh.new()
+mesh.size = Vector3(1, 1.5, 1)
+
+[node name="ActionZone" type="Area3D" parent="Shower"]
+scale = Vector3(1.2, 1.2, 1.2)
+
+[node name="ShowerCollision" type="CollisionShape3D" parent="Shower/ActionZone"]
+shape = BoxShape3D.new()
+shape.size = Vector3(1.2, 1.2, 1.2)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(5, 1, 5)
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+mesh = CapsuleMesh.new()
+
+[node name="Collision" type="CollisionShape3D" parent="Player"]
+shape = CapsuleShape3D.new()
+
+[node name="PlayerCamera" type="Camera3D" parent="Player"]
+position = Vector3(0, 0.6, 0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2")
