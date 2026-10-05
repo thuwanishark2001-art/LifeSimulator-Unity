@@ -6,18 +6,22 @@ var hunger: float = 100.0
 var happiness: float = 75.0
 var cleanliness: float = 80.0
 var health: float = 100.0
-var money: float = 120.0
+var money: float = 500.0
 var day: int = 1
 var time_of_day: float = 8.0
-var job_title: String = "Freelance Worker"
+var job_title: String = "Freelancer"
 var job_level: int = 1
 var current_location: String = "Apartment"
 var work_streak: int = 0
 var social_level: int = 1
 var home_quality: int = 1
 var skill_level: int = 1
-var energy_goal: float = 100.0
 var nutrition_score: float = 50.0
+var fitness_level: int = 1
+var relationships: Dictionary = {"best_friend": 0, "colleague": 0}
+var inventory: Array = []
+var total_earnings: float = 0.0
+var achievements: Array = []
 
 func apply_decay(delta: float) -> void:
 	energy = clamp(energy - delta * 1.15, 0.0, 100.0)
@@ -25,6 +29,7 @@ func apply_decay(delta: float) -> void:
 	cleanliness = clamp(cleanliness - delta * 0.55, 0.0, 100.0)
 	happiness = clamp(happiness - delta * 0.45, 0.0, 100.0)
 	nutrition_score = clamp(nutrition_score - delta * 0.6, 0.0, 100.0)
+	
 	if hunger < 20.0:
 		health = clamp(health - delta * 0.9, 0.0, 100.0)
 	if energy < 15.0:
@@ -35,7 +40,9 @@ func apply_decay(delta: float) -> void:
 func apply_action(action_name: String) -> void:
 	match action_name:
 		"Work":
-			money += 35.0 + job_level * 14.0
+			var earning: float = 35.0 + job_level * 14.0
+			money += earning
+			total_earnings += earning
 			energy -= 20.0
 			hunger -= 16.0
 			happiness += 2.0
@@ -45,8 +52,12 @@ func apply_action(action_name: String) -> void:
 			work_streak += 1
 			if job_level > 10:
 				job_title = "Senior Specialist"
-			if job_level > 15:
+			if job_level > 20:
 				job_title = "Manager"
+			if job_level > 30:
+				job_title = "Executive"
+			if work_streak >= 5 and "Work_Ethic" not in achievements:
+				achievements.append("Work_Ethic")
 		"Eat":
 			hunger += 32.0
 			energy += 12.0
@@ -60,6 +71,8 @@ func apply_action(action_name: String) -> void:
 			happiness += 10.0
 			time_of_day = 7.0
 			day += 1
+			if happiness > 80.0 and "Well_Rested" not in achievements:
+				achievements.append("Well_Rested")
 		"Relax":
 			happiness += 20.0
 			energy -= 6.0
@@ -72,20 +85,40 @@ func apply_action(action_name: String) -> void:
 			happiness += 15.0
 			social_level += 1
 			energy -= 8.0
+			if "best_friend" in relationships:
+				relationships["best_friend"] += 5
+			if social_level >= 5 and "Social_Butterfly" not in achievements:
+				achievements.append("Social_Butterfly")
 		"Study":
 			skill_level += 1
 			health += 5.0
 			happiness += 8.0
 			energy -= 10.0
+			if skill_level >= 10 and "Scholar" not in achievements:
+				achievements.append("Scholar")
 		"UpgradeHome":
 			if money >= 50.0:
 				money -= 50.0
 				home_quality += 1
 				happiness += 12.0
+				if home_quality >= 10 and "Dream_Home" not in achievements:
+					achievements.append("Dream_Home")
 		"Workout":
 			health += 10.0
 			happiness += 7.0
+			fitness_level += 1
 			energy -= 12.0
+			if fitness_level >= 5 and "Fit_Life" not in achievements:
+				achievements.append("Fit_Life")
+		"Meditate":
+			happiness += 25.0
+			energy -= 4.0
+			health += 5.0
+		"Shop":
+			if money >= 20.0:
+				money -= 20.0
+				inventory.append("Item")
+				happiness += 8.0
 		_:
 			pass
 

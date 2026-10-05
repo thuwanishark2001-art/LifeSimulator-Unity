@@ -4,6 +4,7 @@ var stats: LifeStats = LifeStats.new()
 var hud: LifeHUD
 var auto_save: bool = true
 var auto_save_timer: float = 0.0
+var current_save_slot: int = 0
 
 func _ready() -> void:
 	load_game()
@@ -15,14 +16,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	stats.apply_decay(delta)
 	stats.time_of_day += delta * 0.75
+	
 	if stats.time_of_day >= 24.0:
 		stats.time_of_day -= 24.0
 		stats.day += 1
+	
 	if hud:
 		hud.refresh(stats)
+	
 	if auto_save:
 		auto_save_timer += delta
-		if auto_save_timer >= 20.0:
+		if auto_save_timer >= 30.0:
 			auto_save_timer = 0.0
 			save_game()
 
@@ -36,9 +40,9 @@ func do_action(action_name: String) -> void:
 		hud.refresh(stats)
 
 func save_game() -> void:
-	SaveSystem.save_data(stats)
+	SaveSystem.save_data(stats, current_save_slot)
 	if hud and hud.status_label:
-		hud.status_label.text = "Game saved."
+		hud.status_label.text = "Saved to slot %d." % (current_save_slot + 1)
 
 func load_game() -> void:
-	stats = SaveSystem.load_data()
+	stats = SaveSystem.load_data(current_save_slot)
