@@ -7,14 +7,10 @@ var auto_save_timer: float = 0.0
 
 func _ready() -> void:
 	load_game()
-	Application.target_fps = 60
+	Engine.max_fps = 60
 	create_hud()
 	if hud:
 		hud.refresh(stats)
-
-func create_hud() -> void:
-	hud = LifeHUD.new()
-	add_child(hud)
 
 func _process(delta: float) -> void:
 	stats.apply_decay(delta)
@@ -29,6 +25,10 @@ func _process(delta: float) -> void:
 		if auto_save_timer >= 20.0:
 			auto_save_timer = 0.0
 			save_game()
+
+func create_hud() -> void:
+	hud = LifeHUD.new()
+	add_child(hud)
 
 func do_action(action_name: String) -> void:
 	stats.apply_action(action_name)

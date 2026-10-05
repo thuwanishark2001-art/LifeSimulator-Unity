@@ -1,30 +1,23 @@
-# Life Simulator
+# Life Simulator Godot Project
 
-This repository now contains a Godot Engine mobile life-simulation prototype for Android export.
+This project is a Godot 4 mobile life simulator foundation designed for Android export.
 
-What is inside:
-- Godot project configuration
-- GDScript life simulation logic
-- save/load system using ConfigFile
-- modern mobile HUD built in GDScript
-- Android export-ready setup instructions
+## Included systems
 
-Core files:
-- `project.godot`
-- `scripts/LifeStats.gd`
-- `scripts/SaveSystem.gd`
-- `scripts/LifeManager.gd`
-- `scripts/LifeHUD.gd`
-- `scripts/StatBarUI.gd`
-- `scenes/MainGame.tscn`
+- Stats: energy, hunger, happiness, cleanliness, health, money
+- Time and day progression
+- Job progression and daily actions
+- Save/load system using ConfigFile
+- Mobile UI with stat bars and buttons
+- Android-export-ready project config
 
-How to run:
-1. Open the folder in Godot 4.x
-2. Press F5 to run the project
-3. Export > Android > Export APK
+## How to use
 
-Notes:
-- This is a strong game foundation, not a full commercial AAA title with custom art, realistic animation, and advanced world simulation.
-- You still need Android SDK/NDK setup and signing for actual APK production.
+1. Open the project folder in Godot 4.x
+2. Run the `MainGame` scene
+3. Export as Android APK from the Godot export menu
+4. Sign the APK with a keystore before distribution
 
-MIT License
+## Important note
+
+This is a functional prototype and strong foundation. It is not a complete commercial-grade life sim with custom art, advanced 3D realism, or full polished gameplay systems. It is designed to be expanded with additional features, art, and content.

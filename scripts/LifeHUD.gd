@@ -6,6 +6,7 @@ var money_label: Label
 var time_label: Label
 var day_label: Label
 var job_label: Label
+var detail_label: Label
 var stat_bars: Dictionary = {}
 
 func _ready() -> void:
@@ -25,7 +26,6 @@ func build_ui() -> void:
 	title.anchor_right = 0.8
 	title.anchor_top = 0.88
 	title.anchor_bottom = 0.96
-	title.position = Vector2(0, 0)
 	add_child(title)
 
 	status_label = Label.new()
@@ -38,13 +38,23 @@ func build_ui() -> void:
 	status_label.anchor_bottom = 0.87
 	add_child(status_label)
 
+	detail_label = Label.new()
+	detail_label.text = "Home Lv.1 | Social Lv.1 | Work Streak 0"
+	detail_label.add_theme_font_size_override("font_size", 14)
+	detail_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	detail_label.anchor_left = 0.15
+	detail_label.anchor_right = 0.85
+	detail_label.anchor_top = 0.73
+	detail_label.anchor_bottom = 0.79
+	add_child(detail_label)
+
 	money_label = Label.new()
 	money_label.text = "$120"
 	money_label.add_theme_font_size_override("font_size", 24)
 	money_label.anchor_left = 0.05
 	money_label.anchor_right = 0.30
-	money_label.anchor_top = 0.72
-	money_label.anchor_bottom = 0.78
+	money_label.anchor_top = 0.66
+	money_label.anchor_bottom = 0.72
 	add_child(money_label)
 
 	time_label = Label.new()
@@ -53,8 +63,8 @@ func build_ui() -> void:
 	time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	time_label.anchor_left = 0.35
 	time_label.anchor_right = 0.65
-	time_label.anchor_top = 0.72
-	time_label.anchor_bottom = 0.78
+	time_label.anchor_top = 0.66
+	time_label.anchor_bottom = 0.72
 	add_child(time_label)
 
 	day_label = Label.new()
@@ -63,8 +73,8 @@ func build_ui() -> void:
 	day_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	day_label.anchor_left = 0.70
 	day_label.anchor_right = 0.95
-	day_label.anchor_top = 0.72
-	day_label.anchor_bottom = 0.78
+	day_label.anchor_top = 0.66
+	day_label.anchor_bottom = 0.72
 	add_child(day_label)
 
 	job_label = Label.new()
@@ -73,8 +83,8 @@ func build_ui() -> void:
 	job_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	job_label.anchor_left = 0.2
 	job_label.anchor_right = 0.8
-	job_label.anchor_top = 0.66
-	job_label.anchor_bottom = 0.72
+	job_label.anchor_top = 0.61
+	job_label.anchor_bottom = 0.66
 	add_child(job_label)
 
 	stat_bars["Energy"] = create_bar("Energy", 0.12, 0.50)
@@ -88,7 +98,10 @@ func build_ui() -> void:
 	create_button("Sleep", 0.62, 0.22, func(): get_parent().do_action("Sleep"))
 	create_button("Relax", 0.18, 0.08, func(): get_parent().do_action("Relax"))
 	create_button("Shower", 0.40, 0.08, func(): get_parent().do_action("Shower"))
-	create_button("Save", 0.62, 0.08, func(): get_parent().save_game())
+	create_button("Socialize", 0.62, 0.08, func(): get_parent().do_action("Socialize"))
+	create_button("Study", 0.18, -0.04, func(): get_parent().do_action("Study"))
+	create_button("UpgradeHome", 0.40, -0.04, func(): get_parent().do_action("UpgradeHome"))
+	create_button("Save", 0.62, -0.04, func(): get_parent().save_game())
 
 func create_bar(name: String, x: float, y: float) -> StatBarUI:
 	var bar := StatBarUI.new()
@@ -121,19 +134,16 @@ func refresh(stats: LifeStats) -> void:
 		day_label.text = "Day %d" % stats.day
 	if job_label:
 		job_label.text = "%s Lv.%d" % [stats.job_title, stats.job_level]
+	if detail_label:
+		detail_label.text = "Home Lv.%d | Social Lv.%d | Work Streak %d" % [stats.home_quality, stats.social_level, stats.work_streak]
 	for key in stat_bars.keys():
 		var value: float = 0.0
 		match key:
-			"Energy":
-				value = stats.energy
-			"Hunger":
-				value = stats.hunger
-			"Happiness":
-				value = stats.happiness
-			"Cleanliness":
-				value = stats.cleanliness
-			"Health":
-				value = stats.health
+			"Energy": value = stats.energy
+			"Hunger": value = stats.hunger
+			"Happiness": value = stats.happiness
+			"Cleanliness": value = stats.cleanliness
+			"Health": value = stats.health
 		stat_bars[key].set_value(value, key)
 
 func get_status_text(stats: LifeStats) -> String:

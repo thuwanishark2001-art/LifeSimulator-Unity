@@ -8,10 +8,8 @@ var stat_name: String = "Stat"
 
 func setup(name: String) -> void:
 	stat_name = name
-	modulate = Color.WHITE
-	self.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	self.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	self.custom_minimum_size = Vector2(200, 50)
+	self.modulate = Color.WHITE
 
 	var background := ColorRect.new()
 	background.color = Color(0.25, 0.25, 0.25, 1.0)
@@ -24,10 +22,6 @@ func setup(name: String) -> void:
 	fill.anchor_right = 0.98
 	fill.anchor_top = 0.18
 	fill.anchor_bottom = 0.82
-	fill.offset_left = 0
-	fill.offset_right = 0
-	fill.offset_top = 0
-	fill.offset_bottom = 0
 	add_child(fill)
 
 	label = Label.new()
@@ -46,10 +40,9 @@ func setup(name: String) -> void:
 func set_value(value: float, name: String = "Stat") -> void:
 	stat_name = name
 	if fill:
-		fill.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		fill.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		var ratio: float = clamp(value / 100.0, 0.0, 1.0)
 		fill.anchor_left = 0.02
-		fill.anchor_right = 0.02 + clamp(value / 100.0, 0.0, 1.0) * 0.96
+		fill.anchor_right = 0.02 + ratio * 0.96
 		fill.anchor_top = 0.18
 		fill.anchor_bottom = 0.82
 	if label:
