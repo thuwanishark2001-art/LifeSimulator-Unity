@@ -1,53 +1,30 @@
-# Life Simulator - Godot Engine Mobile Prototype
+# Life Simulator
 
-This repository contains a mobile-ready life simulation prototype built for the **Godot Engine** (4.x) and optimized for Android APK export.
+This repository now contains a Godot Engine mobile life-simulation prototype for Android export.
 
-## What is included
+What is inside:
+- Godot project configuration
+- GDScript life simulation logic
+- save/load system using ConfigFile
+- modern mobile HUD built in GDScript
+- Android export-ready setup instructions
 
-- Character stats system: energy, hunger, happiness, cleanliness, health, money
-- Day/night progression and date tracking
-- Jobs, routine actions, and life loop simulation
-- Save/load system using Godot's ConfigFile
-- Modern mobile HUD UI built with Godot UI nodes
-- Android build guidance for Godot
-- Complete Godot project structure (scenes and scripts)
+Core files:
+- `project.godot`
+- `scripts/LifeStats.gd`
+- `scripts/SaveSystem.gd`
+- `scripts/LifeManager.gd`
+- `scripts/LifeHUD.gd`
+- `scripts/StatBarUI.gd`
+- `scenes/MainGame.tscn`
 
-## File overview
+How to run:
+1. Open the folder in Godot 4.x
+2. Press F5 to run the project
+3. Export > Android > Export APK
 
-- `game/LifeStats.gd` - Core stats management
-- `game/LifeManager.gd` - Main game controller
-- `game/SaveSystem.gd` - Persistent save/load logic
-- `ui/LifeHUD.gd` - HUD display and refresh
-- `ui/StatBarUI.gd` - Individual stat bar UI component
-- `scenes/MainGame.tscn` - Main game scene
-- `project.godot` - Godot project configuration
-- `export_presets.cfg` - Android export preset
+Notes:
+- This is a strong game foundation, not a full commercial AAA title with custom art, realistic animation, and advanced world simulation.
+- You still need Android SDK/NDK setup and signing for actual APK production.
 
-## Godot usage
-
-1. Install Godot Engine 4.x (free and open-source)
-2. Open this folder in Godot
-3. Open `scenes/MainGame.tscn`
-4. Press F5 or click Play to run the game
-5. Export > Android > Select Android export preset > Export APK
-
-## Android notes
-
-- Install Android SDK and NDK via Godot project settings
-- Generate a valid keystore for signing
-- Set `application/config/name` and `application/package/unique_name`
-- Test on a real Android device before publishing
-- Consider adding custom art, animations, and sound
-
-## Key Godot differences from Unity
-
-- Uses GDScript (Python-like scripting language)
-- Scene-based architecture instead of GameObject hierarchies
-- Signals system for event communication
-- ConfigFile for save data (instead of JSON)
-- Built-in Node and Control UI system
-- Export as APK directly from editor
-
-## License
-
-MIT
+MIT License

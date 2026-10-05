@@ -1,22 +1,20 @@
-# Godot Life Simulator Project Configuration
+; Engine configuration file.
+; It's best edited using the editor if possible.
+
+config_version=5
 
 [application]
 config/name="Life Simulator"
-config/version="1.0.0"
-config/icon="res://assets/icon.png"
-
-[rendering]
-renderer/rendering_method="mobile"
-textures/vram_compression/import_etc2_astc=true
+run/main_scene="res://scenes/MainGame.tscn"
+config/features=PackedStringArray("4.3")
+config/icon="res://icon.svg"
 
 [display]
 window/size/viewport_width=1080
 window/size/viewport_height=1920
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
+window/stretch/aspect="expand"
 
-[physics]
-physics_engine/default_gravity=9.8
-
-[audio]
-bus_layout="res://audio/default_bus_layout.tres"
+[rendering]
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
