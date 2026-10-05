@@ -15,12 +15,16 @@ var current_location: String = "Apartment"
 var work_streak: int = 0
 var social_level: int = 1
 var home_quality: int = 1
+var skill_level: int = 1
+var energy_goal: float = 100.0
+var nutrition_score: float = 50.0
 
 func apply_decay(delta: float) -> void:
 	energy = clamp(energy - delta * 1.15, 0.0, 100.0)
 	hunger = clamp(hunger - delta * 1.5, 0.0, 100.0)
 	cleanliness = clamp(cleanliness - delta * 0.55, 0.0, 100.0)
 	happiness = clamp(happiness - delta * 0.45, 0.0, 100.0)
+	nutrition_score = clamp(nutrition_score - delta * 0.6, 0.0, 100.0)
 	if hunger < 20.0:
 		health = clamp(health - delta * 0.9, 0.0, 100.0)
 	if energy < 15.0:
@@ -47,6 +51,7 @@ func apply_action(action_name: String) -> void:
 			hunger += 32.0
 			energy += 12.0
 			health += 8.0
+			nutrition_score += 18.0
 			money -= 7.0
 			happiness += 5.0
 		"Sleep":
@@ -67,15 +72,20 @@ func apply_action(action_name: String) -> void:
 			happiness += 15.0
 			social_level += 1
 			energy -= 8.0
+		"Study":
+			skill_level += 1
+			health += 5.0
+			happiness += 8.0
+			energy -= 10.0
 		"UpgradeHome":
 			if money >= 50.0:
 				money -= 50.0
 				home_quality += 1
 				happiness += 12.0
-		"Study":
-			health += 5.0
-			happiness += 8.0
-			energy -= 10.0
+		"Workout":
+			health += 10.0
+			happiness += 7.0
+			energy -= 12.0
 		_:
 			pass
 
@@ -84,3 +94,4 @@ func apply_action(action_name: String) -> void:
 	happiness = clamp(happiness, 0.0, 100.0)
 	cleanliness = clamp(cleanliness, 0.0, 100.0)
 	health = clamp(health, 0.0, 100.0)
+	nutrition_score = clamp(nutrition_score, 0.0, 100.0)

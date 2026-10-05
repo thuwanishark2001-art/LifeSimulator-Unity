@@ -92,6 +92,7 @@ func build_ui() -> void:
 	stat_bars["Happiness"] = create_bar("Happiness", 0.12, 0.26)
 	stat_bars["Cleanliness"] = create_bar("Cleanliness", 0.12, 0.14)
 	stat_bars["Health"] = create_bar("Health", 0.12, 0.02)
+	stat_bars["Nutrition"] = create_bar("Nutrition", 0.12, -0.10)
 
 	create_button("Work", 0.18, 0.22, func(): get_parent().do_action("Work"))
 	create_button("Eat", 0.40, 0.22, func(): get_parent().do_action("Eat"))
@@ -100,8 +101,9 @@ func build_ui() -> void:
 	create_button("Shower", 0.40, 0.08, func(): get_parent().do_action("Shower"))
 	create_button("Socialize", 0.62, 0.08, func(): get_parent().do_action("Socialize"))
 	create_button("Study", 0.18, -0.04, func(): get_parent().do_action("Study"))
-	create_button("UpgradeHome", 0.40, -0.04, func(): get_parent().do_action("UpgradeHome"))
-	create_button("Save", 0.62, -0.04, func(): get_parent().save_game())
+	create_button("Workout", 0.40, -0.04, func(): get_parent().do_action("Workout"))
+	create_button("UpgradeHome", 0.62, -0.04, func(): get_parent().do_action("UpgradeHome"))
+	create_button("Save", 0.50, -0.18, func(): get_parent().save_game())
 
 func create_bar(name: String, x: float, y: float) -> StatBarUI:
 	var bar := StatBarUI.new()
@@ -116,8 +118,8 @@ func create_bar(name: String, x: float, y: float) -> StatBarUI:
 func create_button(text: String, x: float, y: float, callback: Callable) -> void:
 	var button := Button.new()
 	button.text = text
-	button.anchor_left = x - 0.11
-	button.anchor_right = x + 0.11
+	button.anchor_left = x - 0.12
+	button.anchor_right = x + 0.12
 	button.anchor_top = y - 0.05
 	button.anchor_bottom = y + 0.05
 	button.pressed.connect(callback)
@@ -135,7 +137,7 @@ func refresh(stats: LifeStats) -> void:
 	if job_label:
 		job_label.text = "%s Lv.%d" % [stats.job_title, stats.job_level]
 	if detail_label:
-		detail_label.text = "Home Lv.%d | Social Lv.%d | Work Streak %d" % [stats.home_quality, stats.social_level, stats.work_streak]
+		detail_label.text = "Home Lv.%d | Social Lv.%d | Work Streak %d | Skill Lv.%d" % [stats.home_quality, stats.social_level, stats.work_streak, stats.skill_level]
 	for key in stat_bars.keys():
 		var value: float = 0.0
 		match key:
@@ -144,6 +146,7 @@ func refresh(stats: LifeStats) -> void:
 			"Happiness": value = stats.happiness
 			"Cleanliness": value = stats.cleanliness
 			"Health": value = stats.health
+			"Nutrition": value = stats.nutrition_score
 		stat_bars[key].set_value(value, key)
 
 func get_status_text(stats: LifeStats) -> String:

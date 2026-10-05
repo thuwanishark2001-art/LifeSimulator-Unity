@@ -19,6 +19,8 @@ static func save_data(stats: LifeStats) -> void:
 	config.set_value("stats", "work_streak", stats.work_streak)
 	config.set_value("stats", "social_level", stats.social_level)
 	config.set_value("stats", "home_quality", stats.home_quality)
+	config.set_value("stats", "skill_level", stats.skill_level)
+	config.set_value("stats", "nutrition_score", stats.nutrition_score)
 	var err := config.save(SAVE_PATH)
 	if err != OK:
 		push_error("Save failed: %s" % err)
@@ -43,4 +45,6 @@ static func load_data() -> LifeStats:
 	stats.work_streak = int(config.get_value("stats", "work_streak", 0))
 	stats.social_level = int(config.get_value("stats", "social_level", 1))
 	stats.home_quality = int(config.get_value("stats", "home_quality", 1))
+	stats.skill_level = int(config.get_value("stats", "skill_level", 1))
+	stats.nutrition_score = float(config.get_value("stats", "nutrition_score", 50.0))
 	return stats
