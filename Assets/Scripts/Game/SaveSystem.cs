@@ -8,8 +8,15 @@ public static class SaveSystem
 
     public static void Save(LifeSaveData data)
     {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(SavePath, json);
+        try
+        {
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(SavePath, json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Save failed: " + e.Message);
+        }
     }
 
     public static LifeSaveData Load()
@@ -22,10 +29,12 @@ public static class SaveSystem
         try
         {
             string json = File.ReadAllText(SavePath);
-            return JsonUtility.FromJson<LifeSaveData>(json);
+            var data = JsonUtility.FromJson<LifeSaveData>(json);
+            return data != null ? data : new LifeSaveData();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Debug.LogWarning("Load failed, using new save: " + e.Message);
             return new LifeSaveData();
         }
     }

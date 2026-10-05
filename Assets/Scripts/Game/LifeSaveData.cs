@@ -8,11 +8,11 @@ public class LifeSaveData
     public float money = 120f;
     public float energy = 100f;
     public float hunger = 100f;
-    public float happiness = 75f;
+    public float happiness = 70f;
     public float cleanliness = 80f;
     public float health = 100f;
     public string jobTitle = "Freelance Worker";
     public int jobLevel = 1;
-    public string currentLocation = "Apartment";
     public string playerName = "Ava";
+    public string currentLocation = "Apartment";
 }

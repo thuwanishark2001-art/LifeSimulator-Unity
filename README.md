@@ -1,53 +1,42 @@
-# Life Simulator - Android Mobile Unity Prototype
+# Life Simulator mobile prototype
 
-This repository contains a mobile-ready Unity life simulation starter project designed for Android APK export. It includes:
+This repository contains a mobile-first life simulation prototype built to be opened in Unity and exported to Android APK/AAB.
 
-- day/night progression
-- hunger, energy, mood, cleanliness, health systems
-- money and job progression
-- simple activity buttons
-- save/load system
-- modern mobile UI layout
-- Unity project metadata for Android-ready setup
+## What is included
 
-Important notice:
+- Character stats: energy, hunger, happiness, cleanliness, health, money
+- Day/night progression and date tracking
+- Jobs, routine actions, and life loop simulation
+- Save/load system using `Application.persistentDataPath`
+- Modern mobile HUD UI
+- Android build guidance
 
-This is a complete playable starter project foundation, not a high-end commercial AAA game with custom art, 3D models, voice acting, or studio-grade realism. The project is structured to be opened in Unity on a PC and built for Android. It is designed to be expanded with your own art, animations, and gameplay systems.
+## File overview
 
-## Project structure
-
-- `Assets/Scripts/Game/LifeSaveData.cs`
+- `Assets/Scripts/Game/LifeStats.cs`
+- `Assets/Scripts/Game/LifeManager.cs`
 - `Assets/Scripts/Game/SaveSystem.cs`
-- `Assets/Scripts/Game/LifeSimulatorBootstrap.cs`
-- `Packages/manifest.json`
-- `ProjectSettings/ProjectVersion.txt`
+- `Assets/Scripts/Game/LifeSaveData.cs`
+- `Assets/Scripts/UI/LifeHUD.cs`
+- `Assets/Scripts/UI/StatBarUI.cs`
+- `Assets/Scripts/Game/BootSceneSetup.cs`
+- `Assets/Scripts/Game/AndroidBuildGuide.md`
 
-## How to use in Unity
+## Unity usage
 
-1. Open this folder in Unity Hub as a Unity project.
-2. Create a new empty scene or open any existing one.
-3. Add an empty GameObject named `LifeSimulator`.
-4. Attach the `LifeSimulatorBootstrap` script.
-5. Press Play to run the game.
-6. Build Settings -> Android -> Switch Platform -> Build APK.
+1. Open the folder in Unity Hub as a Unity project.
+2. Create a new scene and add an empty GameObject called `LifeSimulator`.
+3. Attach the `BootSceneSetup` script to it.
+4. Press Play.
+5. Build Settings -> Android -> Switch Platform -> Build APK.
 
-## Android export notes
+## Android notes
 
-- Set `Player Settings > Company Name`, `Product Name`, and `Bundle Identifier`.
-- Set `Target Architectures` to ARM64 / ARMv7 as required.
-- Enable `Android` in Build Settings.
-- Use a valid Keystore for signing.
-- Test on an Android device before release.
+- Use a valid keystore.
+- Set `Bundle Identifier` and `Application Identifier`.
+- Test on a real Android device before publishing.
+- Consider adding your own art, animations, sound, and progression content.
 
-## Suggested upgrades
+## Disclaimer
 
-- add character art and 3D environment
-- add inventory and furniture system
-- add schedules, relationships, and events
-- add day-to-day goals and quest system
-- add sound and animations
-- add tablet-friendly UI layouts
-
-## License
-
-MIT
+This is a complete playable starter foundation for a life sim and Android export workflow. It is not a full commercial AAA game with licensed art, advanced 3D assets, or cinematic realism. It is designed as a strong foundation for expansion.
